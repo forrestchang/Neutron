@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from app import app
 from flask import request, jsonify
+from azure_api import recognize
 
 FAKE_VOICE = "hello.mp3"
 
@@ -17,12 +18,14 @@ def upload_voice():
     """
     # file = request.files['file']
     f = request.files['voice']
-    f.save('./upload/'+f.filename)
-    #voice = open(FAKE_VOICE)
+    # f.save('./upload/'+f.filename)
+    recognize_result = recognize(f)
+    print recognize_result
     return jsonify(
         {
             'code': 0,
-            'message': 'ok'
+            'message': 'ok',
+            'recognize_result': recognize_result
         }
     )
 
