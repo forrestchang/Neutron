@@ -3,6 +3,7 @@ import requests
 import uuid
 import urllib
 import json
+import time
 
 
 """
@@ -82,9 +83,10 @@ def synthesize(text):
         data=body
     )
     if ret.status_code == 200:
-        with open("receive.mp3", "wb") as f:
+        save_file_name = "voice%s.mp3" % str(time.time())[:10]
+        with open("app/return_voice/%s" % save_file_name, "wb") as f:
             f.write(ret.content)
-        return "ok", ret.content
+        return "ok", save_file_name
     else:
         return "fail", ""
 

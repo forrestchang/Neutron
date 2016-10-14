@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from app import app
-from flask import request, jsonify
+from flask import request, jsonify, send_from_directory
 from azure_api import recognize, synthesize
 
 FAKE_VOICE = "hello.mp3"
@@ -24,16 +24,16 @@ def upload_voice():
     # 获得返回文字信息
     return_text = recognize_result
     # 获得返回语音信息
-    is_succeed, return_voice = synthesize(return_text)
+    is_succeed, save_file_name = synthesize(return_text)
     print recognize_result
     print is_succeed
-    print return_voice
+    print save_file_name
     return jsonify(
         {
             'code': 0,
             'message': 'ok',
             'recognize_result': recognize_result,
-            'file': return_voice
+            'save_file_name': save_file_name
         }
     )
 
@@ -50,3 +50,13 @@ def upload_image():
         }
     )
 
+
+@app.route('/voice/<file_name>', methods=['GET'])
+def get_voice(file_name):
+    """
+    返回声音文件
+    """
+    return send_from_directory(
+        directory="return_voice",
+        filename=file_name
+    )
