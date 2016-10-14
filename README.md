@@ -14,4 +14,4 @@ password: Hackx123
 python manager.py runserver
 ```
 
-
+see the server at http://121.201.24.49:5000/
