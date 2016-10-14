@@ -12,7 +12,9 @@ import json
 
 ISSUETOKEN_URL = "https://api.cognitive.microsoft.com/sts/v1.0/issueToken"
 RECOGNICE_URL = "https://speech.platform.bing.com/recognize"
+SYNTHESIZE_URL = "https://speech.platform.bing.com/synthesize"
 KEY = "c622adb2893e438796177fadace4a2f2"
+X_SEARCH_APPID = "e2d7d03b4855434eb05095688ec4bc65"
 
 
 def gen_token():
@@ -61,6 +63,30 @@ def recognize(file):
         return ret['results'][0]['name']
     else:
         return "fail to recognize"
+
+
+def synthesize(text):
+    headers = {
+        "Host": "speech.platform.bing.com",
+        "Content-Type": "application/ssml+xml",
+        "Authorization": "Bearer %s" % gen_token(),
+        "X-Microsoft-OutputFormat": "riff-8khz-8bit-mono-mulaw",
+        "X-Search-Appid": X_SEARCH_APPID,
+        "X-Search-ClientID": str(uuid.uuid4()).replace("-", ""),
+    }
+
+    body = "<speak version='1.0' xml:lang='en-us'><voice xml:lang='%s' xml:gender='%s' name='%s'>%s</voice></speak>" % ('en-US', 'Female', 'Microsoft Server Speech Text to Speech Voice (en-US, ZiraRUS)', text)
+    ret = requests.post(
+        url=SYNTHESIZE_URL,
+        headers=headers,
+        data=body
+    )
+    if ret.status_code == 200:
+        with open("receive.mp3", "wb") as f:
+            f.write(ret.content)
+        return "ok", ret.content
+    else:
+        return "fail", ""
 
 
 if __name__ == '__main__':
