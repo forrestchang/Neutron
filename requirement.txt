@@ -1,0 +1,7 @@
+flask
+flask-script
+flask-moment
+flask-bootstrap
+flask-wtf
+flask-login
+Flask-JSON
