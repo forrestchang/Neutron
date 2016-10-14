@@ -2,6 +2,8 @@
 from app import app
 from flask import request, jsonify, send_from_directory
 from azure_api import recognize, synthesize
+from voice_handler import handle_voice
+
 
 FAKE_VOICE = "hello.mp3"
 
@@ -16,13 +18,11 @@ def upload_voice():
     """
     接收一段语音 返回处理结果
     """
-    # file = request.files['file']
     f = request.files['voice']
-    # f.save('./upload/'+f.filename)
     # 获得语音文字信息
     recognize_result = recognize(f)
     # 获得返回文字信息
-    return_text = recognize_result
+    return_text = handle_voice(recognize_result)
     # 获得返回语音信息
     is_succeed, save_file_name = synthesize(return_text)
     print recognize_result

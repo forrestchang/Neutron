@@ -4,6 +4,7 @@ import uuid
 import urllib
 import json
 import time
+from user_config import user_config, set_config
 
 
 """
@@ -37,6 +38,9 @@ def issue_token():
 
 
 def recognize(file):
+    """
+    传入音频file obj 返回text
+    """
     headers = {
         "Host": "speech.platform.bing.com",
         "Content-Type": "audio/wav",
@@ -66,7 +70,10 @@ def recognize(file):
         return "fail to recognize"
 
 
-def synthesize(text):
+def synthesize(text, lang='en-US'):
+    """
+    传入text 返回保存的音频文件名
+    """
     headers = {
         "Host": "speech.platform.bing.com",
         "Content-Type": "application/ssml+xml",
@@ -75,8 +82,14 @@ def synthesize(text):
         "X-Search-Appid": X_SEARCH_APPID,
         "X-Search-ClientID": str(uuid.uuid4()).replace("-", ""),
     }
-
-    body = "<speak version='1.0' xml:lang='en-us'><voice xml:lang='%s' xml:gender='%s' name='%s'>%s</voice></speak>" % ('en-US', 'Female', 'Microsoft Server Speech Text to Speech Voice (en-US, ZiraRUS)', text)
+    gender = user_config.get('gender')
+    print 'use gender: %s' % gender
+    # set_config('gender', 'Male')
+    if gender == 'Female':
+        service_name = 'Microsoft Server Speech Text to Speech Voice (en-US, ZiraRUS)'
+    else:
+        service_name = "Microsoft Server Speech Text to Speech Voice (en-US, BenjaminRUS)"
+    body = "<speak version='1.0' xml:lang='en-us'><voice xml:lang='%s' xml:gender='%s' name='%s'>%s</voice></speak>" % (lang, gender, service_name, text)
     ret = requests.post(
         url=SYNTHESIZE_URL,
         headers=headers,
