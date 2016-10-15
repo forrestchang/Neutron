@@ -15,8 +15,11 @@ from user_config import user_config, set_config
 ISSUETOKEN_URL = "https://api.cognitive.microsoft.com/sts/v1.0/issueToken"
 RECOGNICE_URL = "https://speech.platform.bing.com/recognize"
 SYNTHESIZE_URL = "https://speech.platform.bing.com/synthesize"
+EMOTION_RECOGNICE_URL = "https://api.projectoxford.ai/emotion/v1.0/recognize"
 KEY = "c622adb2893e438796177fadace4a2f2"
+EMOTION_KEY = "193bb83ccb144d8ca812b2d5359aaf52"
 X_SEARCH_APPID = "e2d7d03b4855434eb05095688ec4bc65"
+IMAGE_URL_BASE = "http://localhost:5000/image/"
 
 
 def gen_token():
@@ -109,6 +112,32 @@ def synthesize(text, lang='en-US'):
         return "ok", save_file_name
     else:
         return "fail", ""
+
+
+def emotion_recognize(image_file):
+    """
+    获取图片情绪
+    """
+    file_name, postfix = image_file.filename.split(".", 1)
+    image_file_name = "%s%s.%s" % (file_name, str(time.time())[:10], postfix)
+    image_file_path = "app/image/%s" % image_file_name
+    image_file.save(image_file_path)
+    ret = requests.post(
+        url=EMOTION_RECOGNICE_URL,
+        json={
+            'url': IMAGE_URL_BASE + image_file_name
+        },
+        headers={
+            "Host": "api.projectoxford.ai",
+            "Ocp-Apim-Subscription-Key": EMOTION_KEY
+        }
+    )
+
+    print ret.content
+    if ret.status_code == 200:
+        return 'success'
+    else:
+        return 'fail'
 
 
 if __name__ == '__main__':
