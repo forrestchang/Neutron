@@ -63,7 +63,11 @@ def recognize(file):
         data=file
         # open("Hack.wav", 'rb')
     )
-    ret = json.loads(ret.content)
+    try:
+        ret = json.loads(ret.content)
+    except:
+        return "please try a again"
+
     if ret['header']['status'] == 'success':
         return ret['results'][0]['name']
     else:
@@ -89,7 +93,10 @@ def synthesize(text, lang='en-US'):
         service_name = 'Microsoft Server Speech Text to Speech Voice (en-US, ZiraRUS)'
     else:
         service_name = "Microsoft Server Speech Text to Speech Voice (en-US, BenjaminRUS)"
-    body = u"<speak version='1.0' xml:lang='en-us'><voice xml:lang='%s' xml:gender='%s' name='%s'>%s</voice></speak>" % (lang, gender, service_name, text)
+    body = "<speak version='1.0' xml:lang='en-us'><voice xml:lang='%s' xml:gender='%s' name='%s'>%s</voice></speak>" % (lang, gender, service_name, text)
+    print "aaaaaaaaaaaaaaaaaaaaaaaaa"
+    print body.decode('utf8')
+    print type(body)
     ret = requests.post(
         url=SYNTHESIZE_URL,
         headers=headers,

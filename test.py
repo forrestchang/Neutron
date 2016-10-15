@@ -1,15 +1,32 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
-#########################################################################
-# Author: david
-# Created Time: 2016年10月15日 星期六 01时54分34秒
-# File Name: test.py
-# Description: 
-#########################################################################
 
+import pyaudio
+import wave 
 
-import httplib, urllib
+#define stream chunk   
+chunk = 1024 
 
-conn = httplib.HTTPConnection("speech.platform.bing.com")
+f = wave.open(r"./hello.mp3", "rb")
 
-headers = 
+#instantiate PyAudio  
+p = pyaudio.PyAudio()
+#open stream  
+stream = p.open(format = p.get_format_from_width(f.getsampwidth()),
+        channels = f.getnchannels(), 
+        rate = f.getframerate(),
+        output = True)
+
+#read data  
+data = f.readframes(chunk)
+
+#paly stream  
+while data != '':  
+    stream.write(data)  
+    data = f.readframes(chunk)
+
+#stop stream  
+stream.stop_stream()  
+stream.close()
+
+#close PyAudio  
+p.terminate()
