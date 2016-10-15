@@ -19,7 +19,7 @@ EMOTION_RECOGNICE_URL = "https://api.projectoxford.ai/emotion/v1.0/recognize"
 KEY = "c622adb2893e438796177fadace4a2f2"
 EMOTION_KEY = "193bb83ccb144d8ca812b2d5359aaf52"
 X_SEARCH_APPID = "e2d7d03b4855434eb05095688ec4bc65"
-IMAGE_URL_BASE = "http://localhost:5000/image/"
+IMAGE_URL_BASE = "http://121.201.24.49:5000/image/"
 
 
 def gen_token():
@@ -133,11 +133,15 @@ def emotion_recognize(image_file):
         }
     )
 
-    print ret.content
-    if ret.status_code == 200:
-        return 'success'
-    else:
-        return 'fail'
+    content = json.loads(ret.content)
+    print content
+    sort_dict = sorted(content[u'scores'].iteritems(), key=lambda d:d[1], reverse = True)
+    print sort_dict[0][1]
+    return sort_dict[0][1]
+#    if ret.status_code == 200:
+#        return 'success'
+#    else:
+#        return 'fail'
 
 
 if __name__ == '__main__':
