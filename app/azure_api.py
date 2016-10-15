@@ -89,7 +89,7 @@ def synthesize(text, lang='en-US'):
         service_name = 'Microsoft Server Speech Text to Speech Voice (en-US, ZiraRUS)'
     else:
         service_name = "Microsoft Server Speech Text to Speech Voice (en-US, BenjaminRUS)"
-    body = "<speak version='1.0' xml:lang='en-us'><voice xml:lang='%s' xml:gender='%s' name='%s'>%s</voice></speak>" % (lang, gender, service_name, text)
+    body = u"<speak version='1.0' xml:lang='en-us'><voice xml:lang='%s' xml:gender='%s' name='%s'>%s</voice></speak>" % (lang, gender, service_name, text)
     ret = requests.post(
         url=SYNTHESIZE_URL,
         headers=headers,
