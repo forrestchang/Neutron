@@ -36,8 +36,7 @@ def operation_handler(message):
 
 
 def default_handler(message):
-    #return chat(message)
-    return message
+    return chat(message)
 
 
 HANDLER_MAP = {
