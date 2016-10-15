@@ -53,7 +53,7 @@ def recognize(file):
         "device.os": "wp7",
         "version": "3.0",
         "format": "json",
-        "requestid": "1d4b6030-9099-11e0-91e4-0800200c9a66",
+        "requestid": "1d4b6030-9099-11e0-91e4-0800200c9a99",
         "instanceid": uuid.uuid4()
     }
     query_string = urllib.urlencode(data)
@@ -96,7 +96,7 @@ def synthesize(text, lang='en-US'):
         data=body
     )
     if ret.status_code == 200:
-        save_file_name = "voice%s.mp3" % str(time.time())[:10]
+        save_file_name = "voice%s.wav" % str(time.time())[:10]
         with open("app/return_voice/%s" % save_file_name, "wb") as f:
             f.write(ret.content)
         return "ok", save_file_name

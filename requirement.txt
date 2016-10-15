@@ -5,4 +5,3 @@ flask-bootstrap
 flask-wtf
 flask-login
 Flask-JSON
-requests-toolbelt
