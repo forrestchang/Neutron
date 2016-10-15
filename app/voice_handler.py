@@ -2,6 +2,8 @@
 #from azure_api import xxxx
 import re
 from user_config import user_config, set_config
+from chat_bot_api import chat
+
 
 """
 处理收到的voice行为 根据特定message可触发不同的自定义action
@@ -34,7 +36,7 @@ def operation_handler(message):
 
 
 def default_handler(message):
-    return message
+    return chat(message)
     #return xxxx(message)
 
 
