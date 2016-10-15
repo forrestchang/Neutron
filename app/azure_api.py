@@ -43,17 +43,17 @@ def recognize(file):
     """
     headers = {
         "Host": "speech.platform.bing.com",
-        "Content-Type": "audio/wav",
+        "Content-Type": "audio/wav; samplerate=8000; sourcerate=8000; trustsourcerate=true",
         "Authorization": "Bearer %s" % gen_token()
     }
     data = {
-        "scenarios": "catsearch",
+        "scenarios": "ulm",
         "appid": "D4D52672-91D7-4C74-8AD8-42B1D98141A5",
         "locale": "en-US",
         "device.os": "wp7",
         "version": "3.0",
         "format": "json",
-        "requestid": "1d4b6030-9099-11e0-91e4-0800200c9a99",
+        "requestid": "1d4b6030-9099-11e0-91e4-0899200c9a99",
         "instanceid": uuid.uuid4()
     }
     query_string = urllib.urlencode(data)
