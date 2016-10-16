@@ -22,12 +22,11 @@ def upload_voice():
     # 获得语音文字信息
     recognize_result = recognize(f)
     # 获得返回文字信息
+    print "recognize_result", recognize_result.encode("utf-8")
     return_text = handle_voice(recognize_result)
+    print "return text", return_text.encode("utf-8")
     # 获得返回语音信息
     is_succeed, save_file_name = synthesize(return_text)
-    print recognize_result
-    print is_succeed
-    print save_file_name
     return jsonify(
         {
             'code': 0,

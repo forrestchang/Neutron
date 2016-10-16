@@ -7,7 +7,7 @@ from user_config import user_config
 
 CHAT_BOT_URL_MAP = {
     "en-US": {
-        "url": "https://aiaas.pandorabots.com/talk/1409613156857/testbot?user_key=b59cb68824a509016ac6dadbbbfa54c4&",
+        "url": "https://aiaas.pandorabots.com/talk/1409613156857/testbot?recent=true&user_key=b59cb68824a509016ac6dadbbbfa54c4&",
         "key": "input"
     },
     "zh-CN": {
@@ -31,7 +31,8 @@ def chat(msg):
         else:
             ret = requests.get(CHAT_BOT_URL + msg_query)
             return json.loads(ret.content)['content']
-    except:
+    except Exception as e:
+	print e
         return ""
 
 

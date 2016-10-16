@@ -43,19 +43,14 @@ def operation_handler(message):
     operation_prefix = OPERATION_MAP[lang]["operation_prefix"]
     voice_opt = OPERATION_MAP[lang]["voice"]
     lang_opt = OPERATION_MAP[lang]["language"]
-    print "aaaaaaaaaaaaaaaaaaaa"
     operation = message.lstrip(operation_prefix)
-    print lang_opt
-    print operation
     if operation == voice_opt:
-        print "change voice"
         if user_config["gender"] == "Female":
             set_config("gender", "Male")
         else:
             set_config("gender", "Female")
         return "change voice"
     elif operation == lang_opt:
-        print "change language"
         if lang == "en-US":
             set_config("lang", "zh-CN")
         else:
