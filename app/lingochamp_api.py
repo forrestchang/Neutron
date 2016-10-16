@@ -6,7 +6,7 @@ import grammar_service_pb2
 _TIMEOUT_SECONDS = 10
 
 def grammar_correct(text):
-    channel = grpc.insecure_channel('%s:%d' % ('0.0.0.0', 50054))
+    channel = grpc.insecure_channel('%s:%d' % ('54.222.198.42', 50054))
     stub = grammar_service_pb2.GrammarServiceStub(channel)
     while True:
         if text == 'exit': break
