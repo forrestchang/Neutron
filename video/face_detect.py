@@ -59,7 +59,7 @@ def main():
                 x, y, w, h = faceRect
                 #cv2.rectangle(frame, (x, y), (x+w, y+h), color)
                 cv2.circle(frame, (x+w/2, y+h/2), w/2, color, 2, 8, 0)
-        cv2.putText(frame, emotion, (100, 100), cv2.FONT_HERSHEY_SIMPLEX, 2, 255)
+        cv2.putText(frame, emotion, (10, 10), cv2.FONT_HERSHEY_SIMPLEX, 2, 255)
         cv2.imshow("face", frame)
 
         if i==0 and faceDectectedFlag == True:
