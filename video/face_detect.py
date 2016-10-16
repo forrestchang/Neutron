@@ -43,7 +43,7 @@ def main():
     minSize=(w/divisor, h/divisor)
 
     #start music play thread
-    threading.Thread(target=backgroundMusic, args=()).start()
+    #threading.Thread(target=backgroundMusic, args=()).start()
 
     #main loop start
     while True:
@@ -125,7 +125,7 @@ def backgroundMusic():
                 musicPlayState == "playing"
         elif musicPlayState == "playing":
             if stopMusicFlag == True:
-                pass
+		pass
 
 
     #play music here
