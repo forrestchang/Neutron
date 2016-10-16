@@ -26,12 +26,18 @@ def hello_handler(message):
 def operation_handler(message):
     # 处理用户特殊指令
     operation = message.strip("operation ")
-    if operation == "switch":
+    if operation == "switch voice":
         print "switch voice"
         if user_config["gender"] == "Female":
             set_config("gender", "Male")
         else:
             set_config("gender", "Female")
+    elif operation == "switch language":
+        print "switch language"
+        if user_config["lang"] == "en-US":
+            set_config("lang", "zh-CN")
+        else:
+            set_config("lang", "en-US")
     return "ok"
 
 

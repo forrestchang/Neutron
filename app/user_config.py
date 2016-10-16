@@ -8,6 +8,7 @@
 
 # default config
 user_config = {
+    'lang': 'en-US',
     'gender': 'Female'
 }
 
