@@ -25,7 +25,7 @@ def hello_handler(message):
 
 def operation_handler(message):
     # 处理用户特殊指令
-    operation = message.strip("operation ")
+    operation = message.lstrip("operation ")
     if operation == "voice":
         print "change voice"
         if user_config["gender"] == "Female":
