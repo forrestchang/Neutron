@@ -23,10 +23,13 @@ def chat(msg):
     KEY = CHAT_BOT_URL_MAP[lang]['key']
 
     msg_query = urllib.urlencode({KEY: msg})
-    ret = requests.get(CHAT_BOT_URL + msg_query)
-    ret = json.loads(ret.content)
     try:
-        return ret['responses'][0]
+        if lang == 'en-US':
+            ret = requests.post(CHAT_BOT_URL + msg_query)
+            return json.loads(ret.content)['responses'][0]
+        else:
+            ret = requests.get(CHAT_BOT_URL + msg_query)
+            return json.loads(ret.content)['content']
     except:
         return ""
 
