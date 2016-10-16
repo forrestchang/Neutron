@@ -39,9 +39,9 @@ def hello_handler(message):
 def operation_handler(message):
     # 处理用户特殊指令
     lang = user_config["lang"]
-    operation_prefix = OPERATION_MAP["operation_prefix"]
-    voice_opt = OPERATION_MAP["voice"]
-    lang_opt = OPERATION_MAP["language"]
+    operation_prefix = OPERATION_MAP[lang]["operation_prefix"]
+    voice_opt = OPERATION_MAP[lang]["voice"]
+    lang_opt = OPERATION_MAP[lang]["language"]
 
     operation = message.lstrip(operation_prefix)
     if operation == voice_opt:
