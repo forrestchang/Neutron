@@ -142,12 +142,19 @@ def emotion_recognize(image_file):
         }
     )
     content = json.loads(ret.content)
-    sort_dict = sorted(
-        content[u'scores'].iteritems(),
-        key=lambda d: d[1],
-        reverse=True
-    )
-    return sort_dict[0][1]
+    content = content[0]
+    res = ""
+    try:
+        sort_dict = sorted(
+            content[u'scores'].iteritems(),
+            key=lambda d: d[1],
+            reverse=True
+        )
+        res =  sort_dict[0][0]
+    except:
+	res  =  "neutral"
+    print "aaaaaaaaaaaa res: ", res
+    return res
 
 
 if __name__ == '__main__':

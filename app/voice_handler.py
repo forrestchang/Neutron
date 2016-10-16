@@ -11,20 +11,21 @@ from chat_bot_api import chat
 
 OPERATION_MAP = {
     "en-US": {
-        "operation_prefix": "operation ",
+        "operation_prefix": "change ",
         "voice": "voice",
         "language": "language"
     },
     "zh-CN": {
-        "operation_prefix": "切换",
-        "voice": "声音",
-        "language": "语言"
+        "operation_prefix": u"切换",
+        "voice": u"声音",
+        "language": u"语言"
     }
 }
 
 
 def handle_voice(message):
     # 根据正则来匹配handler
+    # message = message.encode('utf8')
     for message_pattern, handler in HANDLER_MAP.items():
         if re.match(message_pattern, message):
             return handler(message)
@@ -42,8 +43,10 @@ def operation_handler(message):
     operation_prefix = OPERATION_MAP[lang]["operation_prefix"]
     voice_opt = OPERATION_MAP[lang]["voice"]
     lang_opt = OPERATION_MAP[lang]["language"]
-
+    print "aaaaaaaaaaaaaaaaaaaa"
     operation = message.lstrip(operation_prefix)
+    print lang_opt
+    print operation
     if operation == voice_opt:
         print "change voice"
         if user_config["gender"] == "Female":
@@ -67,6 +70,6 @@ def default_handler(message):
 
 HANDLER_MAP = {
     'hello': hello_handler,
-    'operation.*': operation_handler,
-    '切换.*': operation_handler,
+    'change.*': operation_handler,
+     u'切换.*': operation_handler,
 }

@@ -1,0 +1,8 @@
+/usr/local/lib/python2.7/dist-packages/flask/exthook.py:71: ExtDeprecationWarning: Importing flask.ext.script is deprecated, use flask_script instead.
+  .format(x=modname), ExtDeprecationWarning
+ * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+ * Restarting with stat
+/usr/local/lib/python2.7/dist-packages/flask/exthook.py:71: ExtDeprecationWarning: Importing flask.ext.script is deprecated, use flask_script instead.
+  .format(x=modname), ExtDeprecationWarning
+ * Debugger is active!
+ * Debugger pin code: 205-222-293
