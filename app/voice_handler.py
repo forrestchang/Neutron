@@ -13,7 +13,7 @@ from chat_bot_api import chat
 def handle_voice(message):
     # 根据正则来匹配handler
     for message_pattern, handler in HANDLER_MAP.items():
-        if re.match(message, message_pattern):
+        if re.match(message_pattern, message):
             return handler(message)
     # 不能匹配特殊行为就用默认处理函数
     return default_handler(message)
