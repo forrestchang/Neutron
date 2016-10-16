@@ -18,6 +18,7 @@ CHAT_BOT_URL_MAP = {
 
 
 def chat(msg):
+    msg = msg.encode('utf8')
     lang = user_config['lang']
     CHAT_BOT_URL = CHAT_BOT_URL_MAP[lang]['url']
     KEY = CHAT_BOT_URL_MAP[lang]['key']

@@ -106,7 +106,9 @@ def synthesize(text):
     print 'use lang: %s' % lang
     # set_config('gender', 'Male')
     service_name = SERVICE_NAME_MAP[lang][gender]
-    body = "<speak version='1.0' xml:lang='en-us'><voice xml:lang='%s' xml:gender='%s' name='%s'>%s</voice></speak>" % (lang, gender, service_name, text)
+    body = u"<speak version='1.0' xml:lang='%s'><voice xml:lang='%s' xml:gender='%s' name='%s'>%s</voice></speak>" % (lang.lower(), lang, gender, service_name, text)
+    body = body.encode('utf-8')
+    print body
     ret = requests.post(
         url=SYNTHESIZE_URL,
         headers=headers,
