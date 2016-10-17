@@ -31,11 +31,5 @@ def chat(msg):
         else:
             ret = requests.get(CHAT_BOT_URL + msg_query)
             return json.loads(ret.content)['content']
-    except Exception as e:
-	print e
-        return ""
-
-
-if __name__ == '__main__':
-    from IPython import embed
-    embed()
+    except Exception:
+        return "chat server error"

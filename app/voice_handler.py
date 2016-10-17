@@ -6,7 +6,9 @@ from chat_bot_api import chat
 
 
 """
-处理收到的voice行为 根据特定message可触发不同的自定义action
+处理收到的voice行为
+可根据特定message可触发不同的自定义action
+如没有特殊的处理 将调用进入基本的处理流程(聊天)
 """
 
 OPERATION_MAP = {
