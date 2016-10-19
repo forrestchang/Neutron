@@ -1,32 +1,32 @@
 # -*- coding: utf-8 -*-
 
 import pyaudio
-import wave 
+import wave
 
-#define stream chunk   
-chunk = 1024 
+#define stream chunk
+chunk = 1024
 
 f = wave.open(r"./hello.mp3", "rb")
 
-#instantiate PyAudio  
+#instantiate PyAudio
 p = pyaudio.PyAudio()
-#open stream  
+#open stream
 stream = p.open(format = p.get_format_from_width(f.getsampwidth()),
-        channels = f.getnchannels(), 
+        channels = f.getnchannels(),
         rate = f.getframerate(),
         output = True)
 
-#read data  
+#read data
 data = f.readframes(chunk)
 
-#paly stream  
-while data != '':  
-    stream.write(data)  
+#paly stream
+while data != '':
+    stream.write(data)
     data = f.readframes(chunk)
 
-#stop stream  
-stream.stop_stream()  
+#stop stream
+stream.stop_stream()
 stream.close()
 
-#close PyAudio  
+#close PyAudio
 p.terminate()
