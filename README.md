@@ -1,4 +1,8 @@
-# Project in HACKxFDU.
+# Neutron 
+
+An intelligent personal assistant built in Raspberry Pi, as an inexpensive solution for home automation.
+
+![Neutron Logo](./logo/Neutron.png)
 
 ## start server
 
