@@ -52,6 +52,9 @@ def synthesize(text):
         "tok": "24.dd515eb1693c0fb9de3d3368229dd651.2592000.1485319770.282335-9124210",
         "ctp": 1,
         "cuid": "tisoga",
+        "spd": 2,
+        "pit": 5,
+        "vol": 9,
         "per": 0
     }
     query_string = urllib.parse.urlencode(parms)

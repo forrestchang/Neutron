@@ -73,20 +73,18 @@ def record_wave():
             if resp.json()['code'] == 0:
                 print(resp.json()['recognize_result'])
                 r = requests.get(
-                    "http://" + SERVER_URL + ":5000/voice" + resp.json()['save_file_name']
-                    # stream=True
+                    "http://" + SERVER_URL + ":5000/voice/" + resp.json()['save_file_name'],
+                    stream=True
                 )
-                print(type(r))
-                print(type(r.raw))
-                print(type(r.content))
                 with open('temp.mp3', 'wb') as f:
-                    f.write(r.content)
-                stream.stop_stream()
-                # mixer.init()
-                # mixer.music.load('temp.mp3')
-                # mixer.music.play()
+                    for data in r.iter_content(chunk_size=1024):
+                        f.write(data)
+                # stream.stop_stream()
+                mixer.init()
+                mixer.music.load('temp.mp3')
+                mixer.music.play()
                 time.sleep(2)
-                stream.start_stream()
+                # stream.start_stream()
 
             print(filename + ' saved')
             is_end = False
