@@ -68,7 +68,7 @@ def record_wave():
                 "http://" + SERVER_URL + ":5000/upload_voice",
                 files=files
             )
-            print(resp.json())
+            print(resp.json()['recognize_result'])
             if resp.json()['code'] == 0:
                 print('SUCCESS'.center(20, '*'))
 
