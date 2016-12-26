@@ -1,5 +1,5 @@
 #!usr/bin/env python
-#coding=utf-8
+# coding=utf-8
 
 import numpy as np
 from pyaudio import PyAudio, paInt16
@@ -12,16 +12,17 @@ import sounddevice as sd
 import time
 
 
-#IP = "127.0.0.1"
-IP = "121.201.24.49"
+IP = "127.0.0.1"
+# IP = "121.201.24.49"
 
-#define of params
+# define of params
 NUM_SAMPLES = 2000
 framerate = 8000
 channels = 1
 sampwidth = 2
-#record time
+# record time
 TIME = 10
+
 
 def save_wave_file(filename, data):
     '''''save the date to the wav file'''
@@ -34,11 +35,11 @@ def save_wave_file(filename, data):
 
 
 def record_wave():
-    #open the input of wave
+    # open the input of wave
     pa = PyAudio()
-    stream = pa.open(format = paInt16, channels = 1,
-                    rate = framerate, input = True,
-                    frames_per_buffer = NUM_SAMPLES)
+    stream = pa.open(format=paInt16, channels=1,
+                     rate=framerate, input=True,
+                     frames_per_buffer=NUM_SAMPLES)
     save_buffer = []
     # 记录是否录音结束
     isEnd = True
@@ -46,7 +47,7 @@ def record_wave():
     # isCount = False
 
     while True:
-        #read NUM_SAMPLES sampling data
+        # read NUM_SAMPLES sampling data
         string_audio_data = stream.read(NUM_SAMPLES)
 
         wave_data = np.fromstring(string_audio_data, dtype=np.short)
