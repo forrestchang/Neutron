@@ -4,11 +4,10 @@ from datetime import datetime
 import requests
 import wave
 import os
-import json
 
 SERVER_URL = os.getenv('SERVER_URL') or '0.0.0.0'
 
-NUM_SAMPLES = 2000
+NUM_SAMPLES = 2**12
 FRAMERATE = 8000
 CHANNELS = 1
 SAMPWIDTH = 2
@@ -40,7 +39,7 @@ def record_wave():
 
     while True:
         # read NUM_SAMPLES sampling data
-        string_audio_data = stream.read(NUM_SAMPLES)
+        string_audio_data = stream.read(NUM_SAMPLES, exception_on_overflow=False)
 
         wave_data = np.fromstring(string_audio_data, dtype=np.short)
         wave_data.shape = -1, 2
