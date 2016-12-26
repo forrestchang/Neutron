@@ -1,6 +1,7 @@
 import requests
 import urllib.parse
 import os
+import time
 
 
 def gen_token():
@@ -42,3 +43,26 @@ def recognize(file):
         return ret.json()['result'][0].strip(' ，')
     else:
         return 'Fail to recognize'
+
+
+def synthesize(text):
+    parms = {
+        "tex": text,
+        "lan": "zh",
+        "tok": "24.dd515eb1693c0fb9de3d3368229dd651.2592000.1485319770.282335-9124210",
+        "ctp": 1,
+        "cuid": "tisoga",
+        "per": 0
+    }
+    query_string = urllib.parse.urlencode(parms)
+    resp = requests.get(
+        'http://tsn.baidu.com/text2audio' + '?{}'.format(query_string)
+    )
+
+    if resp.status_code == 200:
+        save_file_name = "voice{}.mp3".format(str(time.time())[:10])
+        with open("app/return_voice/{}".format(save_file_name), 'wb') as f:
+            f.write(resp.content)
+        return ('ok', save_file_name)
+    else:
+        return ('fail', '')

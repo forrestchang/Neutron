@@ -1,9 +1,12 @@
 import numpy as np
 from pyaudio import PyAudio, paInt16
 from datetime import datetime
+from pygame import mixer
 import requests
 import wave
 import os
+import time
+import shutil
 
 SERVER_URL = os.getenv('SERVER_URL') or '0.0.0.0'
 
@@ -67,9 +70,23 @@ def record_wave():
                 "http://" + SERVER_URL + ":5000/upload_voice",
                 files=files
             )
-            print(resp.json()['recognize_result'])
             if resp.json()['code'] == 0:
-                print('SUCCESS'.center(20, '*'))
+                print(resp.json()['recognize_result'])
+                r = requests.get(
+                    "http://" + SERVER_URL + ":5000/voice" + resp.json()['save_file_name']
+                    # stream=True
+                )
+                print(type(r))
+                print(type(r.raw))
+                print(type(r.content))
+                with open('temp.mp3', 'wb') as f:
+                    f.write(r.content)
+                stream.stop_stream()
+                # mixer.init()
+                # mixer.music.load('temp.mp3')
+                # mixer.music.play()
+                time.sleep(2)
+                stream.start_stream()
 
             print(filename + ' saved')
             is_end = False

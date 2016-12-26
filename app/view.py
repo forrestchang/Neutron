@@ -1,6 +1,7 @@
 from app import app
 from flask import request, jsonify, send_from_directory
-from .baidu_api import recognize
+from .baidu_api import recognize, synthesize
+
 
 @app.route('/')
 def index():
@@ -13,11 +14,13 @@ def upload_voice():
     f = request.files['voice']
     recognize_result = recognize(f)
     print("Recognize result: {}".format(recognize_result))
+    is_succeed, save_file_name = synthesize(recognize_result)
     return jsonify(
         {
             'code': 0,
             'message': 'ok',
-            'recognize_result': recognize_result
+            'recognize_result': recognize_result,
+            'save_file_name': save_file_name
         }
     )
 
