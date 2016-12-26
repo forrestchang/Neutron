@@ -4,20 +4,17 @@ from datetime import datetime
 import wave
 
 
-# define of params
 NUM_SAMPLES = 2000
-framerate = 8000
-channels = 1
-sampwidth = 2
-# record time
-TIME = 10
+FRAMERATE = 8000
+CHANNELS = 1
+SAMPWIDTH = 2
 
 
 def save_wave_file(filename, data):
     wf = wave.open(filename, 'wb')
-    wf.setnchannels(channels)
-    wf.setsampwidth(sampwidth)
-    wf.setframerate(framerate)
+    wf.setnchannels(CHANNELS)
+    wf.setsampwidth(SAMPWIDTH)
+    wf.setframerate(FRAMERATE)
     wf.writeframes(b''.join(data))
     wf.close()
 
@@ -27,8 +24,8 @@ def record_wave():
     pa = PyAudio()
     stream = pa.open(
         format=paInt16,
-        channels=1,
-        rate=framerate,
+        channels=CHANNELS,
+        rate=FRAMERATE,
         input=True,
         frames_per_buffer=NUM_SAMPLES
     )
@@ -58,7 +55,7 @@ def record_wave():
 
         if len(save_buffer) != 0 and is_end is True:
             filename = datetime.now().strftime("%Y-%m-%d_%H_%M_%S") + '.wav'
-            save_wave_file(filename, save_buffer)
+            save_wave_file('records/' + filename, save_buffer)
             print(filename + ' saved')
             is_end = False
             save_buffer = []
