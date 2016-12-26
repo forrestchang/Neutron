@@ -118,7 +118,7 @@ ENV/
 .ropeproject
 
 # User config
-.wav
-.mp3
+*.wav
+*.mp3
 app/return_voice/
 client/records/
