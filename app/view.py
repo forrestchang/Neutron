@@ -9,7 +9,8 @@ def index():
 
 @app.route('/upload_voice', methods=['POST', 'GET'])
 def upload_voice():
-    f = open('app/hello.wav', 'rb')
+    # f = open('app/hello.wav', 'rb')
+    f = request.files['voice']
     recognize_result = recognize(f)
     print("Recognize result: {}".format(recognize_result))
     return jsonify(
@@ -18,4 +19,12 @@ def upload_voice():
             'message': 'ok',
             'recognize_result': recognize_result
         }
+    )
+
+
+@app.route('/voice/<filename>')
+def get_voice(filename):
+    return send_from_directory(
+        directory='return_voice',
+        filename=filename
     )

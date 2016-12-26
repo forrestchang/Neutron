@@ -1,8 +1,12 @@
 import numpy as np
 from pyaudio import PyAudio, paInt16
 from datetime import datetime
+import requests
 import wave
+import os
+import json
 
+SERVER_URL = os.getenv('SERVER_URL') or '0.0.0.0'
 
 NUM_SAMPLES = 2000
 FRAMERATE = 8000
@@ -56,6 +60,18 @@ def record_wave():
         if len(save_buffer) != 0 and is_end is True:
             filename = datetime.now().strftime("%Y-%m-%d_%H_%M_%S") + '.wav'
             save_wave_file('records/' + filename, save_buffer)
+
+            files = {
+                "voice": open('records/' + filename, 'rb')
+            }
+            resp = requests.post(
+                "http://" + SERVER_URL + ":5000/upload_voice",
+                files=files
+            )
+            print(resp.json())
+            if resp.json()['code'] == 0:
+                print('SUCCESS'.center(20, '*'))
+
             print(filename + ' saved')
             is_end = False
             save_buffer = []
