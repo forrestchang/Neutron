@@ -1,6 +1,7 @@
 from app import app
 from flask import request, jsonify, send_from_directory
 from .baidu_api import recognize, synthesize
+from .turing_api import turing_robot
 
 
 @app.route('/')
@@ -14,7 +15,9 @@ def upload_voice():
     f = request.files['voice']
     recognize_result = recognize(f)
     print("Recognize result: {}".format(recognize_result))
-    is_succeed, save_file_name = synthesize(recognize_result)
+    resp_message = turing_robot(recognize_result)
+    print("Respond message: {}".format(resp_message))
+    is_succeed, save_file_name = synthesize(resp_message)
     return jsonify(
         {
             'code': 0,
