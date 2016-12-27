@@ -1,4 +1,4 @@
-from app import app
+from . import app
 from flask import request, jsonify, send_from_directory
 from .baidu_api import recognize, synthesize
 from .turing_api import turing_robot
