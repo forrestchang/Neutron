@@ -50,7 +50,7 @@ def record_wave():
         print(len(wave_data[0]))
         print(np.mean(np.abs(wave_data[0])))
 
-        if np.mean(np.abs(wave_data[0])) > 2000:
+        if np.mean(np.abs(wave_data[0])) > 1200:
             is_end = False
         elif np.mean(np.abs(wave_data[0])) < 700:
             is_end = True
