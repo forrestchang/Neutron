@@ -83,7 +83,8 @@ def record_wave():
                 mixer.init()
                 mixer.music.load('temp.mp3')
                 mixer.music.play()
-                time.sleep(2)
+                while mixer.music.get_busy():
+                    time.sleep(1)
                 stream.start_stream()
 
             print(filename + ' saved')

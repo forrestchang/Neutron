@@ -42,7 +42,7 @@ def recognize(file):
     if ret.json()['err_msg'] == 'success.':
         return ret.json()['result'][0].strip(' ，')
     else:
-        return 'Fail to recognize'
+        return '呵呵呵呵呵'
 
 
 def synthesize(text):
