@@ -53,7 +53,7 @@ def synthesize(text):
         "ctp": 1,
         "cuid": "tisoga",
         "spd": 2,
-        "pit": 5,
+        "pit": 3,
         "vol": 9,
         "per": 0
     }
