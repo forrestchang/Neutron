@@ -5,7 +5,7 @@ import json
 class AIHandler(object):
 
     def __init__(self):
-        configs = json.loads(open('config.json').read())
+        configs = json.loads(open('neutron.json').read())
         self.ai_service = Turing_AI(**configs['turing'])
 
     def execute(self, msg):

@@ -5,7 +5,7 @@ import json
 class AudioTextHandler(object):
 
     def __init__(self):
-        configs = json.loads(open('config.json').read())
+        configs = json.loads(open('neutron.json').read())
         self.audio_text_service = BaiduService(**configs['baidu'])
 
     def audio2text(self, audio_file):
