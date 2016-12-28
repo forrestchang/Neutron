@@ -9,6 +9,7 @@ CLIENT_SECRET = os.getenv('BAIDU_VOICE_CLIENT_SECRET') or 'efeeca301934f987b28c1
 VOICE2TEXT_URL = 'http://vop.baidu.com/server_api'
 TEXT2VOICE_URL = 'http://tsn.baidu.com/text2audio'
 
+
 def gen_token():
     new_token = issue_token()
     return new_token
