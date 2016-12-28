@@ -2,10 +2,10 @@ from layers.baidu import BaiduService
 import json
 
 
-class AudioTextHandler(object):
+class AudioTextHandler(Handler):
 
     def __init__(self):
-        configs = json.loads(open('neutron.json').read())
+        configs = super.load_configs('voice')
         self.audio_text_service = BaiduService(**configs['baidu'])
 
     def audio2text(self, audio_file):

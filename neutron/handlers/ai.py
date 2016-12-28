@@ -1,11 +1,12 @@
 from layers.turing import Turing_AI
+from . import Handler
 import json
 
 
-class AIHandler(object):
+class AIHandler(Handler):
 
     def __init__(self):
-        configs = json.loads(open('neutron.json').read())
+        configs = super.load_configs('ai')
         self.ai_service = Turing_AI(**configs['turing'])
 
     def execute(self, msg):
