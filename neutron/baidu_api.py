@@ -3,6 +3,11 @@ import urllib.parse
 import os
 import time
 
+ISSUE_TOKEN_URL = 'https://openapi.baidu.com/oauth/2.0/token'
+CLIENT_ID = os.getenv('BAIDU_VOICE_CLIENT_ID') or 'U0Fzj0kga5prC6wxDMpgNONA'
+CLIENT_SECRET = os.getenv('BAIDU_VOICE_CLIENT_SECRET') or 'efeeca301934f987b28c1ae6b9105d8c'
+VOICE2TEXT_URL = 'http://vop.baidu.com/server_api'
+TEXT2VOICE_URL = 'http://tsn.baidu.com/text2audio'
 
 def gen_token():
     new_token = issue_token()
@@ -11,13 +16,11 @@ def gen_token():
 
 def issue_token():
     ret = requests.post(
-        'https://openapi.baidu.com/oauth/2.0/token',
+        ISSUE_TOKEN_URL,
         data={
             "grant_type": "client_credentials",
-            # "cliend_id": os.getenv('CLIENT_ID'),
-            # "client_secret": os.getenv('CLIENT_SECRET')
-            "client_id": "U0Fzj0kga5prC6wxDMpgNONA",
-            "client_secret": "efeeca301934f987b28c1ae6b9105d8c"
+            "client_id": CLIENT_ID,
+            "client_secret": CLIENT_SECRET
         }
     )
     return ret.json()['access_token']
@@ -30,12 +33,12 @@ def recognize(file):
     }
     params = {
         "cuid": "tisoga",
-        "token": "24.dd515eb1693c0fb9de3d3368229dd651.2592000.1485319770.282335-9124210",
+        "token": gen_token(),
         "lan": lan,
     }
     query_string = urllib.parse.urlencode(params)
     ret = requests.post(
-        'http://vop.baidu.com/server_api' + "?{}".format(query_string),
+        VOICE2TEXT_URL + "?{}".format(query_string),
         headers=headers,
         data=file
     )
@@ -49,7 +52,7 @@ def synthesize(text):
     parms = {
         "tex": text,
         "lan": "zh",
-        "tok": "24.dd515eb1693c0fb9de3d3368229dd651.2592000.1485319770.282335-9124210",
+        "tok": gen_token(),
         "ctp": 1,
         "cuid": "tisoga",
         "spd": 2,
@@ -59,7 +62,7 @@ def synthesize(text):
     }
     query_string = urllib.parse.urlencode(parms)
     resp = requests.get(
-        'http://tsn.baidu.com/text2audio' + '?{}'.format(query_string)
+        TEXT2VOICE_URL + '?{}'.format(query_string)
     )
 
     if resp.status_code == 200:
