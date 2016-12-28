@@ -5,11 +5,7 @@ import requests
 import wave
 import os
 import time
-<<<<<<< HEAD
-=======
-import shutil
 import struct
->>>>>>> 7e9ad0183b83ee7d3c3f39ef30f48a9f79053da4
 
 SERVER_URL = os.getenv('SERVER_URL') or '0.0.0.0'
 
@@ -42,7 +38,7 @@ def record_wave():
 
     # if record is end
     is_end = True
-    strf = '<' + 'h'*NUM_SAMPLES
+    strf = '<' + 'h' * NUM_SAMPLES
 
     while True:
         # read NUM_SAMPLES sampling data
@@ -50,11 +46,11 @@ def record_wave():
         wave_data = struct.unpack(strf, bytes(string_audio_data))[::3]
         wave_data = list(map(abs, wave_data))
         print(len(wave_data))
-        print(sum(wave_data)/len(wave_data))
+        print(sum(wave_data) / len(wave_data))
 
-        if sum(wave_data)/len(wave_data) > 1200:
+        if sum(wave_data) / len(wave_data) > 1200:
             is_end = False
-        elif sum(wave_data)/len(wave_data) < 700:
+        elif sum(wave_data) / len(wave_data) < 700:
             is_end = True
 
         if is_end is False:
