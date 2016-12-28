@@ -1,4 +1,3 @@
-import numpy as np
 from pyaudio import PyAudio, paInt16
 from datetime import datetime
 from pygame import mixer
@@ -7,6 +6,7 @@ import wave
 import os
 import time
 import shutil
+import struct
 
 SERVER_URL = os.getenv('SERVER_URL') or '0.0.0.0'
 
@@ -39,20 +39,19 @@ def record_wave():
 
     # if record is end
     is_end = True
+    strf = '<' + 'h'*NUM_SAMPLES
 
     while True:
         # read NUM_SAMPLES sampling data
         string_audio_data = stream.read(NUM_SAMPLES, exception_on_overflow=False)
+        wave_data = struct.unpack(strf, bytes(string_audio_data))[::3]
+        wave_data = list(map(abs, wave_data))
+        print(len(wave_data))
+        print(sum(wave_data)/len(wave_data))
 
-        wave_data = np.fromstring(string_audio_data, dtype=np.short)
-        wave_data.shape = -1, 2
-        wave_data = wave_data.T
-        print(len(wave_data[0]))
-        print(np.mean(np.abs(wave_data[0])))
-
-        if np.mean(np.abs(wave_data[0])) > 1200:
+        if sum(wave_data)/len(wave_data) > 1200:
             is_end = False
-        elif np.mean(np.abs(wave_data[0])) < 700:
+        elif sum(wave_data)/len(wave_data) < 700:
             is_end = True
 
         if is_end is False:
