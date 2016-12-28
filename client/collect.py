@@ -6,7 +6,6 @@ import requests
 import wave
 import os
 import time
-import shutil
 
 SERVER_URL = os.getenv('SERVER_URL') or '0.0.0.0'
 

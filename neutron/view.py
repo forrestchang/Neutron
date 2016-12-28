@@ -9,7 +9,7 @@ def index():
     return 'Test Page'
 
 
-@app.route('/upload_voice', methods=['POST', 'GET'])
+@app.route('/upload_voice', methods=['POST'])
 def upload_voice():
     # f = open('app/hello.wav', 'rb')
     f = request.files['voice']

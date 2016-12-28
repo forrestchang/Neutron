@@ -64,7 +64,7 @@ def synthesize(text):
 
     if resp.status_code == 200:
         save_file_name = "voice{}.mp3".format(str(time.time())[:10])
-        with open("app/return_voice/{}".format(save_file_name), 'wb') as f:
+        with open("neutron/return_voice/{}".format(save_file_name), 'wb') as f:
             f.write(resp.content)
         return ('ok', save_file_name)
     else:
