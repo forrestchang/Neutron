@@ -1,0 +1,10 @@
+{
+  "baidu": {
+    "client_id": "U0Fzj0kga5prC6wxDMpgNONA",
+    "client_secret": "efeeca301934f987b28c1ae6b9105d8c"
+  },
+
+  "turing": {
+    "access_key": "fb583eb0d6a54e758489e971ec2f3aed"
+  }
+}
