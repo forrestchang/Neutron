@@ -11,7 +11,6 @@ def index():
 
 @app.route('/upload_voice', methods=['POST'])
 def upload_voice():
-    # f = open('app/hello.wav', 'rb')
     f = request.files['voice']
     recognize_result = recognize(f)
     if recognize_result == 'fail':
