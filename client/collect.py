@@ -62,16 +62,16 @@ def record_wave():
             save_wave_file('records/' + filename, save_buffer)
 
             files = {
-                "voice": open('records/' + filename, 'rb')
+                "audio": open('records/' + filename, 'rb')
             }
             resp = requests.post(
-                "http://" + SERVER_URL + ":5000/upload_voice",
+                "http://" + SERVER_URL + ":5000/upload_audio",
                 files=files
             )
             if resp.json()['code'] == 0:
                 print(resp.json()['recognize_result'])
                 r = requests.get(
-                    "http://" + SERVER_URL + ":5000/voice/" + resp.json()['save_file_name'],
+                    "http://" + SERVER_URL + ":5000/audio/" + resp.json()['save_file_name'],
                     stream=True
                 )
                 with open('temp.mp3', 'wb') as f:

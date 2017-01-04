@@ -1,12 +1,12 @@
-from layers.turing import Turing_AI
-from . import Handler
+from ..layers.turing import Turing_AI
+from . import load_configs
 import json
 
 
-class AIHandler(Handler):
+class AIHandler(object):
 
     def __init__(self):
-        configs = super.load_configs('ai')
+        configs = load_configs('ai')
         self.ai_service = Turing_AI(**configs['turing'])
 
     def execute(self, msg):

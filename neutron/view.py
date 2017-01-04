@@ -1,7 +1,7 @@
 from . import app
 from flask import request, jsonify, send_from_directory
-from .baidu_api import recognize, synthesize
-from .turing_api import turing_robot
+from .handlers.ai import AIHandler
+from .handlers.audiotext import AudioTextHandler
 
 
 @app.route('/')
@@ -9,17 +9,19 @@ def index():
     return 'Test Page'
 
 
-@app.route('/upload_voice', methods=['POST'])
-def upload_voice():
-    f = request.files['voice']
-    recognize_result = recognize(f)
+@app.route('/upload_audio', methods=['POST'])
+def upload_audio():
+    audio_text_handler = AudioTextHandler()
+    ai_handler = AIHandler()
+    f = request.files['audio']
+    recognize_result = audio_text_handler.audio2text(f)
     if recognize_result == 'fail':
-        save_file_name = synthesize('你在说什么鬼')[1]
+        save_file_name = audio_text_handler.text2audio('你在说什么鬼')
     else:
         print("Recognize result: {}".format(recognize_result))
-        resp_message = turing_robot(recognize_result)
+        resp_message = ai_handler.execute(recognize_result)
         print("Respond message: {}".format(resp_message))
-        is_succeed, save_file_name = synthesize(resp_message)
+        save_file_name = audio_text_handler.text2audio(resp_message)
     return jsonify(
         {
             'code': 0,
@@ -30,9 +32,9 @@ def upload_voice():
     )
 
 
-@app.route('/voice/<filename>')
-def get_voice(filename):
+@app.route('/audio/<filename>')
+def get_audio(filename):
     return send_from_directory(
-        directory='return_voice',
+        directory='return_audio',
         filename=filename
     )
