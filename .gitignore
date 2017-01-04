@@ -1,6 +1,7 @@
 *.DS_Store
 .AppleDouble
 .LSOverride
+.vscode/
 
 # Icon must end with two \r
 Icon
@@ -120,5 +121,5 @@ ENV/
 # User config
 *.wav
 *.mp3
-app/return_voice/
-client/records/
+# app/return_voice/
+# client/records/
