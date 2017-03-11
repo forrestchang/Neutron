@@ -1,11 +1,12 @@
 import requests
 import urllib.parse
-import os
 import time
 import uuid
 
 
 class BaiduService(object):
+    """BaiduServece.
+    """
 
     def __init__(self, **kwargs):
         self.issue_token_url = 'https://openapi.baidu.com/oauth/2.0/token'
